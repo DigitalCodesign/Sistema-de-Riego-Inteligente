@@ -15,8 +15,8 @@
 WiFiServer server(80);
 
 // Variables con las credenciales del WiFi
-const char* ssid     = "MiFibra-7D98";
-const char* password = "NoVFC2RR";
+const char* ssid     = "NOMBREDEMIWIFI";
+const char* password = "CLAVEMIWIFI";
 
 // Variable para gestionar el timeout de conexión a la red WiFi
 int contconexion = 0;
