@@ -15,8 +15,8 @@
 WiFiServer server(80);
 
 // Variables con las credenciales del WiFi
-const char* ssid     = "NOMBREDEMIWIFI";
-const char* password = "CLAVEMIWIFI";
+const char* ssid     = "Redmi Note 13";
+const char* password = "43836046";
 
 // Variable para gestionar el timeout de conexión a la red WiFi
 int contconexion = 0;
@@ -34,6 +34,9 @@ const int rele = 4;
 const int sensorLluvia = 32;
 const int sensorHumedadSuelo = 33;
 const int sensorLuz = 34;
+const int rgb_rojo = 26;
+const int rgb_verde = 25;
+const int rgb_azul = 27;
 
 // Código HTML para la interfaz mostrada en la IP del Servidor Web
 String inicioPagina = "<!DOCTYPE html>"
@@ -56,11 +59,17 @@ void setup() {
     Serial.println("");
 
     // Definición e inicialización del relé de salida y sensores
+    pinMode(rgb_rojo, OUTPUT);
+    pinMode(rgb_verde, OUTPUT);
+    pinMode(rgb_azul, OUTPUT);
     pinMode(sensorLluvia, INPUT);
     pinMode(sensorHumedadSuelo, INPUT);
     pinMode(sensorLuz, INPUT);
     pinMode(rele, OUTPUT);
     digitalWrite(rele, LOW);
+    analogWrite(rgb_rojo, 0);
+    analogWrite(rgb_verde, 200);
+    analogWrite(rgb_azul, 0);
 
     // Inicializar Sensor DHT
     sensorDHT.begin();
@@ -148,8 +157,8 @@ void loop(){
                         int lecturaLluvia = map(analogRead(sensorLluvia), 0, 4095, 0, 100);
                         int lecturaHumedadSuelo = map(analogRead(sensorHumedadSuelo), 0, 4095, 0, 100);
                         int lecturaLuz = map(analogRead(sensorLuz), 0, 4095, 0, 100);
-                        float lecturaTemperatura = sensorDHT.readHumidity();
-                        float lecturaHumedad = sensorDHT.readTemperature();
+                        float lecturaTemperatura = sensorDHT.readTemperature();
+                        float lecturaHumedad = sensorDHT.readHumidity();
 
                         String titulo = "<h1>Servidor Web ESP32</h1>";
                         String botonEncendido = "<p><a href='/on'><button style='height:50px;width:100px'>ON</button></a></p>";
